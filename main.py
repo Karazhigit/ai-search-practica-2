@@ -8,3 +8,26 @@ graph = {
     "Robotics Lab": [("AI Lab", 4)],
     "AI Lab": []
 }
+
+def dfs(graph, start, goal):
+    stack = [(start, [start])]
+    visited = set()
+    expanded = []
+
+    while stack:
+        node, path = stack.pop()
+
+        if node in visited:
+            continue
+
+        visited.add(node)
+        expanded.append(node)
+
+        if node == goal:
+            return path, expanded
+
+        for neighbour, cost in reversed(graph[node]):
+            if neighbour not in visited:
+                stack.append((neighbour, path + [neighbour]))
+
+    return None, expanded
